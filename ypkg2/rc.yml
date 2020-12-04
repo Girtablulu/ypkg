@@ -33,14 +33,14 @@ actions:
         DESTDIR="%installroot%" ninja install %JOBS% -C solusBuildDir
     - ninja_check: &ninja_check |
         ninja test %JOBS% -C solusBuildDir
-    - ninja_qt6_install: &ninja_install |
-        DESTDIR="%installroot%" ninja install %JOBS% -C solusBuildDir
+    - ninja_qt6_install: |
         function ninja_qt6_install() {
             install -Ddm00755 $installdir/usr/bin
             for bin in $installdir/usr/lib64/qt6/bin/* ; do
                 ln -vs $installdir/usr/lib64/qt6/bin/$(basename $bin) $installdir/usr/bin/$(basename $bin)-qt6
             done
         }
+        *ninja_install
         ninja_qt6_install
     # These macros are for backward compatibility only. Please use the ninja ones
     - meson_build: *ninja_build
