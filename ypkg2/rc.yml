@@ -34,6 +34,7 @@ actions:
     - ninja_check: &ninja_check |
         ninja test %JOBS% -C solusBuildDir
     - ninja_qt6_install: &ninja_install |
+        DESTDIR="%installroot%" ninja install %JOBS% -C solusBuildDir
         function ninja_qt6_install() {
             install -Ddm00755 $installdir/usr/bin
             for bin in $installdir/usr/lib64/qt6/bin/* ; do
